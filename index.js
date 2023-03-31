@@ -52,9 +52,14 @@ app.post('/tarefas', async (req, res) => {
 });
 
 
-app.get('/tarefas', (req, res) => {
-    res.json(tasks.find(id(2)));
-    console.log(tarefa)
+app.get('/tarefas', async (req, res) => {
+    try {
+           const tasks = await Task.findAll()
+           res.json(tasks)
+    } catch (error) {
+        res.status(500).json({message: "Não foi possível processar sua solicitação"})
+    }
+
 });
 
 
